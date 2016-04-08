@@ -1,0 +1,71 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+<div id="main">
+    <div class="wrapper">
+        <aside id="left-sidebar-nav">
+            <ul id="slide-out" class="side-nav fixed leftside-navigation ps-container ps-active-y" style="width: 240px;">
+                <li class="user-details cyan darken-2">
+                    <div class="row">
+                        <div class="col col s4 m4 l4">
+                            <img src="{{ base_url() }}/img/avatar.png" alt="" class="circle responsive-img valign profile-image">
+                        </div>
+                        <div class="col col s8 m8 l8">
+                            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">{{ auth.username }} <span class="fa fa-caret-down"></span></a>
+                            <ul id="profile-dropdown" class="dropdown-content" style="width: 128px; position: absolute; top: 57px; left: 101.234px; opacity: 1; display: none;">
+                                <li><a href="{{ path_for('admin.info') }}"><i class="fa fa-user"></i> 资料</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path_for('logout') }}"><i class="fa fa-sign-out"></i> 登出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="bold{% if cateName == '控制台' %} active{% endif %}"><a href="{{ path_for('admin.dashboard') }}" class="waves-effect waves-cyan"><i class="fa fa-dashboard"></i> 控制台</a>
+                </li>
+                <li class="bold{% if cateName == '管理员管理' %} active{% endif %}"><a href="{{ path_for('admin.users') }}" class="waves-effect waves-cyan"><i class="fa fa-users"></i> 管理员管理</a>
+                </li>
+                <li class="bold{% if cateName == '商品分类' %} active{% endif %}"><a href="{{ path_for('admin.categories') }}" class="waves-effect waves-cyan"><i class="fa fa-navicon"></i> 商品分类</a>
+                </li>
+                <li class="bold{% if cateName == '供应商管理' %} active{% endif %}"><a href="{{ path_for('admin.suppliers') }}" class="waves-effect waves-cyan"><i class="fa fa-modx"></i> 供应商管理</a>
+                </li>
+                <li class="bold{% if cateName == '商品管理' %} active{% endif %}"><a href="{{ path_for('admin.goods') }}" class="waves-effect waves-cyan"><i class="fa fa-shopping-bag"></i> 商品管理</a>
+                </li>
+            </ul>
+        </aside>
+
+        <section id="content">
+            <div id="breadcrumbs-wrapper">
+                <!-- Search for small screen -->
+                <div class="header-search-wrapper grey hide-on-large-only">
+                    <i class="mdi-action-search active"></i>
+                    <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+                </div>
+                <div class="container my-container">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <h5 class="cate-title">{{ cateName }}</h5>
+                            <div class="adjust"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-container">
+                {% if message_admin %}
+                <div class="card-panel teal">
+                    <span class="white-text">{{ message_admin }}</span>
+                </div>
+                {% endif %}
+                {% if error_admin %}
+                <div class="card-panel red">
+                    <span class="white-text">{{ error_admin }}</span>
+                </div>
+                {% endif %}
+
+                {% block nothing %}{% endblock %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

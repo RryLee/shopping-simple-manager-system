@@ -1,0 +1,40 @@
+{% extends 'layouts/master.html' %}
+
+{% block title %}
+登陆
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br />
+        <br />
+        <div class="row">
+            <form class="col s12" method="POST" action="{{ path_for('login.post') }}">
+                <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+                <div class="row">
+                    <div class="col m6 offset-m3 s12">
+                        <div class="input-field">
+                            <input id="email" type="text" name="email" value="{% if request.getParam('email') %}{{ request.getParam('email') }}{% endif %}">
+                            <label for="email">邮箱</label>
+                        </div>
+                        {% if errors.first('email') %}<div class="card-panel red"><span class="white-text">{{ errors.first('email') }}</span></div>{% endif %}
+
+                        <div class="input-field">
+                            <input id="password" type="password" name="password">
+                            <label for="password">密码</label>
+                        </div>
+                        {% if errors.first('password') %}<div class="card-panel red"><span class="white-text">{{ errors.first('password') }}</span></div>{% endif %}
+
+                        <div class="input-field" style="position: relative;top: -20px;">
+                            <input type="checkbox" name="remember" id="remember">
+                            <label for="remember">记住密码?</label>
+                        </div>
+                        <div class="input-field">
+                            <button type="submit" class="waves-effect waves-light btn">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+新建分类
+{% endblock %}
+
+{% block nothing %}
+<div class="row">
+    <form class="col s12" method="post" action="{{ path_for('admin.categories.store') }}">
+        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+        <div class="row">
+            <div class="col m6 offset-m3 s12">
+                <div class="input-field">
+                    <input id="title" type="text" name="title" value="{% if request.getParam('title') %}{{ request.getParam('title') }}{% endif %}">
+                    <label for="title">名称</label>
+                </div>
+                <div class="input-field">
+                    <input id="subtitle" type="text" name="subtitle" value="{% if request.getParam('subtitle') %}{{ request.getParam('subtitle') }}{% endif %}">
+                    <label for="subtitle">描述</label>
+                </div>
+                <div class="input-field">
+                    <button type="submit" class="waves-effect waves-light btn red">确定</button>
+                    <a href="{{ path_for('admin.categories') }}"><button type="button" class="waves-effect waves-light btn">取消</button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

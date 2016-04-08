@@ -1,0 +1,34 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+修改{{ supplier.brand }}供应商
+{% endblock %}
+
+{% block nothing %}
+<div class="row">
+    <form class="col s12" method="post" action="{{ path_for('admin.suppliers.update') }}">
+        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+        <input type="hidden" name="id" value="{{ supplier.id }}">
+        <div class="row">
+            <div class="col m6 offset-m3 s12">
+                <div class="input-field">
+                    <input id="brand" type="text" name="brand" value="{{ supplier.brand }}">
+                    <label for="brand">厂商</label>
+                </div>
+                <div class="input-field">
+                    <input id="linkman" type="text" name="linkman" value="{{ supplier.linkman }}">
+                    <label for="linkman">联系人</label>
+                </div>
+                <div class="input-field">
+                    <input id="phone" type="text" name="phone" value="{{ supplier.phone }}">
+                    <label for="phone">联系方式</label>
+                </div>
+                <div class="input-field">
+                    <button type="submit" class="waves-effect waves-light btn red">确定</button>
+                    <a href="{{ path_for('admin.suppliers') }}"><button type="button" class="waves-effect waves-light btn">取消</button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

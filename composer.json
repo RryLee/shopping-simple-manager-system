@@ -1,0 +1,22 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Market\\": "app/src/"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.3",
+        "slim/twig-view": "^2.1",
+        "hassankhan/config": "^0.10.0",
+        "illuminate/database": "^5.2",
+        "alexgarrett/violin": "2.*",
+        "ircmaxell/random-lib": "^1.1",
+        "slim/flash": "^0.1.0"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}

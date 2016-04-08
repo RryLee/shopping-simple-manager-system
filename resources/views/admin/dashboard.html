@@ -1,0 +1,52 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+后台管理
+{% endblock %}
+
+{% block nothing %}
+<div id="card-status">
+    <div class="row">
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content green white-text">
+                    <p class="card-stats-title"><i class="fa fa-users"></i> 管理人员</p>
+                    <h4 class="card-stats-number">{{ data.adminCount }}</h4>
+                    <p class="card-stats-compare"><i class="fa fa-flash"></i> {{ data.superCount }} <span class="green-text text-lighten-5">超级管理员</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content pink lighten-1 white-text">
+                    <p class="card-stats-title"><i class="fa fa-navicon"></i> 商品分类</p>
+                    <h4 class="card-stats-number">{{ data.cateCount }}</h4>
+                    <p class="card-stats-compare"><i class="fa fa-caret-up"></i> 最近添加 1 <span class="deep-purple-text text-lighten-5">个分类</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content blue-grey white-text">
+                    <p class="card-stats-title"><i class="fa fa-modx"></i> 供应商</p>
+                    <h4 class="card-stats-number">{{ data.supplierCount }}</h4>
+                    <p class="card-stats-compare"><i class="fa fa-phone"></i> 最近联系 2 <span class="deep-purple-text text-lighten-5">家供应商</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content purple white-text">
+                    <p class="card-stats-title"><i class="fa fa-shopping-bag"></i> 商品</p>
+                    <h4 class="card-stats-number">{{ data.goodsCount }}</h4>
+                    <p class="card-stats-compare"><i class="fa fa-money"></i> 总计 {{ data.goodsCost }} <span class="deep-purple-text text-lighten-5">金额</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

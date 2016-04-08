@@ -1,0 +1,29 @@
+<div class="navbar-fixed">
+    <nav class="teal" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="{{ path_for('home') }}" class="brand-logo">超哥超市</a>
+            {% if auth %}
+            {% else %}
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{{ path_for('login') }}">点击进货</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="{{ path_for('login') }}">点击进货</a></li>
+            </ul>
+            {% endif %}
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+</div>
+
+{% if message %}
+<div class="card-panel teal">
+    <span class="white-text">{{ message }}</span>
+</div>
+{% endif %}
+{% if error %}
+<div class="card-panel red">
+    <span class="white-text">{{ error }}</span>
+</div>
+{% endif %}

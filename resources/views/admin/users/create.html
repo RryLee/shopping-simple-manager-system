@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+新建管理员
+{% endblock %}
+
+{% block nothing %}
+<div class="row">
+    <form class="col s12" method="post" action="{{ path_for('admin.users.store') }}">
+        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+        <div class="row">
+            <div class="col m6 offset-m3 s12">
+                <div class="input-field">
+                    <input id="username" type="text" name="username">
+                    <label for="username">用户名</label>
+                </div>
+                <div class="input-field">
+                    <input id="email" type="text" name="email">
+                    <label for="email">邮箱</label>
+                </div>
+                <div class="input-field">
+                    <input id="password" type="password" name="password">
+                    <label for="password">密码</label>
+                </div>
+                <div class="input-field">
+                    <input id="password_confirmation" type="password" name="password_confirmation">
+                    <label for="password_confirmation">确认密码</label>
+                </div>
+                <div class="input-field" style="position: relative;top: -20px;">
+                    <input type="checkbox" name="issuper" id="issuper">
+                    <label for="issuper">设置为超管?</label>
+                </div>
+                <div class="input-field">
+                    <button type="submit" class="waves-effect waves-light btn red">确定</button>
+                    <a href="{{ path_for('admin.users') }}"><button type="button" class="waves-effect waves-light btn">取消</button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

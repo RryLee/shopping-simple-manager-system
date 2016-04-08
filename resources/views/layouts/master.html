@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | 超市后台管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- lib -->
+    <link rel="stylesheet" href="{{ base_url() }}/css/lib/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/app.css">
+</head>
+<body>
+    {% include 'partials/nav.html' %}
+    {% block content %}{% endblock %}
+
+    <script src="{{ base_url() }}/js/lib/jquery.min.js"></script>
+    <script src="{{ base_url() }}/js/lib/materialize.min.js"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>

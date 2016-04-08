@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+商品分类
+{% endblock %}
+
+{% block nothing %}
+<a class="btn-floating btn-large waves-effect waves-light red" href="{{ path_for('admin.categories.create') }}"><i class="fa fa-plus"></i></a>
+
+<table>
+    <thead>
+        <tr>
+            <th data-field="id">Id</th>
+            <th data-field="title">名称</th>
+            <th data-field="subtitle">描述</th>
+            <th data-field="created_at">添加日期</th>
+            <th data-field="edit">修改</th>
+            <th data-field="delete">删除</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for c in categories %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.title }}</td>
+                <td>{{ c.subtitle }}</td>
+                <td>{{ c.created_at | date("m/d/Y") }}</td>
+                <td><a href="{{ path_for('admin.categories.edit', {id: c.id}) }}" class="waves-effect waves-light btn">修改</a></td>
+                <td>
+                    <form action="{{ path_for('admin.categories.destory') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ c.id }}">
+                        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+                        <button class="waves-effect waves-light btn red" onclick="confirm('这将删除该分类下的全部商品，请确认好?')">删除</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

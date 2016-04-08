@@ -1,0 +1,45 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+商品管理
+{% endblock %}
+
+{% block nothing %}
+<a class="btn-floating btn-large waves-effect waves-light red" href="{{ path_for('admin.goods.create') }}"><i class="fa fa-plus"></i></a>
+
+<table>
+    <thead>
+        <tr>
+            <th data-field="id">Id</th>
+            <th data-field="name">名称</th>
+            <th data-field="amount">库存</th>
+            <th data-field="price">价格 / ¥</th>
+            <th data-field="category">分类</th>
+            <th data-field="supplier">供货商</th>
+            <th data-field="edit">修改</th>
+            <th data-field="delete">删除</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for g in goods %}
+            <tr>
+                <td>{{ g.id }}</td>
+                <td>{{ g.name }}</td>
+                <td>{{ g.amount }}</td>
+                <td>{{ g.price }}</td>
+                <td>{{ g.category.title }}</td>
+                <td>{{ g.supplier.brand }}</td>
+                <td><a href="{{ path_for('admin.goods.edit', {id: g.id}) }}" class="waves-effect waves-light btn">修改</a></td>
+                <td>
+                    <form action="{{ path_for('admin.goods.destory') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ g.id }}">
+                        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+                        <button class="waves-effect waves-light btn red" onclick="return confirm('确定删除该商品?')">删除</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

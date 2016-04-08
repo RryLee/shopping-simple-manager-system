@@ -1,0 +1,43 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+供应商管理
+{% endblock %}
+
+{% block nothing %}
+<a class="btn-floating btn-large waves-effect waves-light red" href="{{ path_for('admin.suppliers.create') }}"><i class="fa fa-plus"></i></a>
+
+<table>
+    <thead>
+        <tr>
+            <th data-field="id">Id</th>
+            <th data-field="name">厂商</th>
+            <th data-field="linkman">联系人</th>
+            <th data-field="phone">联系方式</th>
+            <th data-field="created_at">添加时间</th>
+            <th data-field="edit">修改</th>
+            <th data-field="delete">删除</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for s in suppliers %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.brand }}</td>
+                <td>{{ s.linkman }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ s.created_at | date("m/d/Y") }}</td>
+                <td><a href="{{ path_for('admin.suppliers.edit', {id: s.id}) }}" class="waves-effect waves-light btn">修改</a></td>
+                <td>
+                    <form action="{{ path_for('admin.suppliers.destory') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ s.id }}">
+                        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+                        <button class="waves-effect waves-light btn red" onclick="return confirm('删除厂商将会删除有关的所有商品，你确定要这么干吗?')">删除</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

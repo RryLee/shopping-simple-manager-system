@@ -1,0 +1,95 @@
+#!/usr/bin/env php
+<?php
+
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+require __DIR__.'/vendor/autoload.php';
+
+define("MIGRATIONS_PATH", __DIR__."/app/database/migrations");
+define("SEEDS_PATH", __DIR__."/app/database/seeds");
+
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'tuchao',
+    'username'  => 'root',
+    'password'  => 'root',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+date_default_timezone_set('UTC');
+
+/**
+ * Script for creating, destroying, and seeding the app's database
+ */
+class Artisan
+{
+    function __construct($args)
+    {
+        $this->args = $args;
+    }
+    function help()
+    {
+        echo "\n";
+        echo "syntaxis: php artisan <command> [<args>]".PHP_EOL;
+        echo PHP_EOL;
+        echo "Commands: \n";
+        echo "php artisan --help                  -->   Displays the help menu.".PHP_EOL;
+        echo "php artisan migrate                 -->   Migrate the database.".PHP_EOL;
+        echo "php artisan seed                    -->   Seed the database tables.".PHP_EOL;
+        echo "php artisan artisan migrate --seed   -->   Migrate and seed the database.".PHP_EOL;
+        echo PHP_EOL;
+    }
+    function exec()
+    {
+        if (count($this->args) <= 1) {
+            $this->help();
+        } else {
+            switch ($this->args[1]) {
+                case "migrate":
+                    $this->runMigrations();
+                    if (!isset($this->args[2]) || $this->args[2] != '--seed')
+                        break;
+                case "seed":
+                    $this->runSeed();
+                    break;
+                case "go":
+                    $this->runMigrations();
+                    $this->runSeed();
+                    break;
+                case "help":
+                case "--help":
+                    $this->help();
+                    break;
+            }
+        }
+    }
+    function runMigrations()
+    {
+        $files = glob(MIGRATIONS_PATH.'/*.php');
+        $this->run($files);
+    }
+    function runSeed()
+    {
+        $files = glob(SEEDS_PATH.'/*.php');
+        $this->run($files);
+    }
+
+    private function run($files)
+    {
+        foreach ($files as $file) {
+            require_once($file);
+            $class = basename($file, '.php');
+            $obj = new $class;
+            $obj->run();
+        }
+    }
+}
+$artisan = new Artisan($argv);
+$artisan->exec();

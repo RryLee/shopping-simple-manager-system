@@ -1,0 +1,52 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+管理员管理
+{% endblock %}
+
+{% block nothing %}
+{% if auth.issuper %}
+<a class="btn-floating btn-large waves-effect waves-light red" href="{{ path_for('admin.users.create') }}"><i class="fa fa-plus"></i></a>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th data-field="id">Id</th>
+            <th data-field="username">用户名</th>
+            <th data-field="email">邮箱</th>
+            <th data-field="issuper">超管</th>
+            <th data-field="created_at">授权日期</th>
+            {% if auth.issuper %}
+            <th data-field="edit">修改</th>
+            <th data-field="delete">删除</th>
+            {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <input type="checkbox" class="filled-in" id="filled-in-box" disabled {% if user.issuper %}checked{% endif %} />
+                    <label for="filled-in-box"></label>
+                </td>
+                <td>{{ user.created_at | date("m/d/Y") }}</td>
+                {% if auth.issuper %}
+                <td><a href="{{ path_for('admin.users.edit', {id: user.id}) }}" class="waves-effect waves-light btn">修改</a></td>
+                <td>
+                    <form action="{{ path_for('admin.users.destory') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+                        <button class="waves-effect waves-light btn red" onclick="return confirm('Are you sure?')">删除</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

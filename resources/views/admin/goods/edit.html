@@ -1,0 +1,50 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+修改{{ goods.name }}商品
+{% endblock %}
+
+{% block nothing %}
+<div class="row">
+    <form class="col s12" method="post" action="{{ path_for('admin.goods.update') }}">
+        <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
+        <input type="hidden" name="id" value="{{ goods.id }}"></input>
+        <div class="row">
+            <div class="col m6 offset-m3 s12">
+                <div class="input-field">
+                    <input id="name" type="text" name="name" value="{{ goods.name }}">
+                    <label for="name">名称</label>
+                </div>
+                <div class="input-field">
+                    <input id="amount" type="number" name="amount" value="{{ goods.amount }}">
+                    <label for="amount">库存</label>
+                </div>
+                <div class="input-field">
+                    <input id="price" type="text" name="price" value="{{ goods.price }}">
+                    <label for="price">价格</label>
+                </div>
+                <div class="input-field">
+                    <select class="browser-default" name="category_id">
+                        <option value="" disabled selected>选择分类</option>
+                        {% for id, c in categories %}
+                            <option value="{{ id }}"{% if id == goods.category_id %} selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <select class="browser-default" name="supplier_id">
+                        <option value="" disabled selected>选择供应商</option>
+                        {% for id, s in suppliers %}
+                            <option value="{{ id }}"{% if id == goods.supplier_id %} selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <button type="submit" class="waves-effect waves-light btn red">确定</button>
+                    <a href="{{ path_for('admin.goods') }}"><button type="button" class="waves-effect waves-light btn">取消</button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
