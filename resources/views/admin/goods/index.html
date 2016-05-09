@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th data-field="id">Id</th>
+            <th data-field="image">图片</th>
             <th data-field="name">名称</th>
             <th data-field="amount">库存</th>
             <th data-field="price">价格 / ¥</th>
@@ -25,6 +26,9 @@
         {% for g in goods %}
             <tr>
                 <td>{{ g.id }}</td>
+                <td>
+                    <img class="materialboxed" width="200" src="../img/{{ g.image }}">
+                </td>
                 <td>{{ g.name }}</td>
                 <td>{{ g.amount }}</td>
                 <td>{{ g.price }}</td>

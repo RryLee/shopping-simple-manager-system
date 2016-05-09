@@ -48,5 +48,16 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col s6 offset-s3">
+            <ul class="collection">
+                {% for record in records %}
+                <li class="collection-item">{{ record | raw }}</li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="waves-effect waves-light btn red">查看全部</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -23,6 +23,8 @@
                 </li>
                 <li class="bold{% if cateName == '控制台' %} active{% endif %}"><a href="{{ path_for('admin.dashboard') }}" class="waves-effect waves-cyan"><i class="fa fa-dashboard"></i> 控制台</a>
                 </li>
+                <li class="bold{% if cateName == '交易记录' %} active{% endif %}"><a href="{{ path_for('admin.log') }}" class="waves-effect waves-cyan"><i class="fa fa-file"></i> 交易记录</a>
+                </li>
                 <li class="bold{% if cateName == '管理员管理' %} active{% endif %}"><a href="{{ path_for('admin.users') }}" class="waves-effect waves-cyan"><i class="fa fa-users"></i> 管理员管理</a>
                 </li>
                 <li class="bold{% if cateName == '商品分类' %} active{% endif %}"><a href="{{ path_for('admin.categories') }}" class="waves-effect waves-cyan"><i class="fa fa-navicon"></i> 商品分类</a>

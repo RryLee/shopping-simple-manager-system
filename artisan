@@ -23,7 +23,7 @@ $capsule->addConnection([
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
-date_default_timezone_set('UTC');
+date_default_timezone_set('PRC');
 
 /**
  * Script for creating, destroying, and seeding the app's database

@@ -12,7 +12,8 @@ class Goods extends Eloquent
         'supplier_id',
         'name',
         'amount',
-        'price'
+        'price',
+        'image'
     ];
 
     public static function cost()

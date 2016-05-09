@@ -1,6 +1,7 @@
 <?php
 
 use Market\Models\Goods;
+use Market\Helpers\Filer;
 
 $app->post('/admin/goods/update', function ($request, $response, $args) use ($app) {
     $c = $app->getContainer();
@@ -23,6 +24,20 @@ $app->post('/admin/goods/update', function ($request, $response, $args) use ($ap
 
     if ($v->passes()) {
         $goods = Goods::find($id);
+
+        if ($goods->amount != $amount) {
+            if ($goods->amount > $amount) {
+                $type = '出货';
+            } else {
+                $type = '进货';
+            }
+
+            $amountTemp = abs($goods->amount - $amount);
+
+            $filer = new Filer('storage/log-goods.txt');
+            $filer->write(sprintf("<b>%s</b>: %s <i>%d</i> 份 %s\n", date('Y-m-d H:i:s'), $type, $amountTemp, $name));
+        }
+
         $goods->update([
             'name' => $name,
             'amount' => $amount,

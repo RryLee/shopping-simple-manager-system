@@ -17,6 +17,7 @@ class DGoodsMigration
             $table->string('name');
             $table->integer('amount');
             $table->float('price');
+            $table->string('image')->default('goods/default.png');
             $table->timestamps();
         });
     }

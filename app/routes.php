@@ -15,6 +15,10 @@ require ROOT . '/app/routes/auth/logout.php';
 ************************************/
 require ROOT . '/app/routes/admin/dashboard.php';
 /************************************
+* Log
+************************************/
+require ROOT . '/app/routes/admin/log.php';
+/************************************
 * Admin Info
 ************************************/
 require ROOT . '/app/routes/admin/info.php';

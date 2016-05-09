@@ -1,6 +1,7 @@
 <?php
 
 use Market\Models\Goods;
+use Market\Helpers\Filer;
 use Market\Models\Category;
 use Market\Models\Supplier;
 
@@ -34,13 +35,25 @@ $app->post('/admin/goods/store', function ($request, $response, $args) use ($app
     ]);
 
     if ($v->passes()) {
+        $image = $_FILES['image'];
+        if ($image['name']) {
+            move_uploaded_file($image['tmp_name'], 'img/goods/' . $image['name']);
+            $imageName = 'goods/' . $image['name'];
+        } else {
+            $imageName = 'goods/default.png';
+        }
+
         Goods::create([
             'name' => $name,
             'amount' => $amount,
             'price' => $price,
             'category_id' => $category_id,
             'supplier_id' => $supplier_id,
+            'image' => $imageName
         ]);
+
+        $filer = new Filer('storage/log-goods.txt');
+        $filer->write(sprintf("<b>%s</b>: 添加 <i>%d</i> 份 %s\n", date('Y-m-d H:i:s'), $amount, $name));
 
         $c->flash->addMessage('message_admin', '成功添加' . $name);
         return $response->withRedirect($c->router->pathFor('admin.goods'));
@@ -48,4 +61,5 @@ $app->post('/admin/goods/store', function ($request, $response, $args) use ($app
 
     $c->flash->addMessage('error_admin', '请确认后填写');
     return $response->withRedirect($c->router->pathFor('admin.goods.create'));
+
 })->add($authenticated)->setName('admin.goods.store');
