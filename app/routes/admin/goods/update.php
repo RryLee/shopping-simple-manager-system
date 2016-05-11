@@ -35,16 +35,24 @@ $app->post('/admin/goods/update', function ($request, $response, $args) use ($ap
             $amountTemp = abs($goods->amount - $amount);
 
             $filer = new Filer('storage/log-goods.txt');
-            $filer->write(sprintf("<b>%s</b>: %s <i>%d</i> 份 %s\n", date('Y-m-d H:i:s'), $type, $amountTemp, $name));
+            $filer->write(sprintf("<b>%s</b>(%s) 在 %s: %s <i>%d</i> 份 %s\n", date('Y-m-d H:i:s'), $this->auth->username, $this->auth->email, $type, $amountTemp, $name));
         }
 
-        $goods->update([
+        $data = [
             'name' => $name,
             'amount' => $amount,
             'price' => $price,
             'category_id' => $category_id,
             'supplier_id' => $supplier_id,
-        ]);
+        ];
+
+        $image = $_FILES['image'];
+        if ($image['name']) {
+            move_uploaded_file($image['tmp_name'], 'img/goods/' . $image['name']);
+            $data['image'] = 'goods/' . $image['name'];
+        }
+
+        $goods->update($data);
 
         $c->flash->addMessage('message_admin', '修改成功');
         return $response->withRedirect($c->router->pathFor('admin.goods'));

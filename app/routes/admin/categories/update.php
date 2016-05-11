@@ -12,7 +12,7 @@ $app->post('/admin/categories/update', function ($request, $response, $args) use
     $v = $c->validator;
     $v->validate([
         'id' => [$id, 'required'],
-        'title' => [$title, 'required|createTitle']
+        'title' => [$title, 'required|updateTitle']
     ]);
 
     if ($v->passes()) {

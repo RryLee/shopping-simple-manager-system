@@ -53,7 +53,7 @@ $app->post('/admin/goods/store', function ($request, $response, $args) use ($app
         ]);
 
         $filer = new Filer('storage/log-goods.txt');
-        $filer->write(sprintf("<b>%s</b>: 添加 <i>%d</i> 份 %s\n", date('Y-m-d H:i:s'), $amount, $name));
+        $filer->write(sprintf("<b>%s</b>(%s) 在 %s: 添加 <i>%d</i> 份 %s\n", $this->auth->username, $this->auth->email, date('Y-m-d H:i:s'), $amount, $name));
 
         $c->flash->addMessage('message_admin', '成功添加' . $name);
         return $response->withRedirect($c->router->pathFor('admin.goods'));

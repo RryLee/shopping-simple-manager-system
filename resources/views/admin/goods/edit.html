@@ -6,7 +6,7 @@
 
 {% block nothing %}
 <div class="row">
-    <form class="col s12" method="post" action="{{ path_for('admin.goods.update') }}">
+    <form class="col s12" method="post" action="{{ path_for('admin.goods.update') }}" enctype="multipart/form-data">
         <input type="hidden" name="{{ csrf_key }}" value="{{ csrf_token }}">
         <input type="hidden" name="id" value="{{ goods.id }}"></input>
         <div class="row">
@@ -38,6 +38,18 @@
                             <option value="{{ id }}"{% if id == goods.supplier_id %} selected{% endif %}>{{ s }}</option>
                         {% endfor %}
                     </select>
+                </div>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>图片</span>
+                        <input type="file" name="image">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="input-field">
+                    <img src="../../../img/{{ goods.image }}" width="100%">
                 </div>
                 <div class="input-field">
                     <button type="submit" class="waves-effect waves-light btn red">确定</button>
